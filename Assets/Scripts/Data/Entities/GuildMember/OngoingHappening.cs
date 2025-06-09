@@ -1,12 +1,12 @@
 ﻿using System;
 
 [Serializable]
-public class OngoingState
+public class OngoingHappening
 {
     public int StateId;
     public int DaysRemaining;
 
-    public OngoingState(int stateId, int duration)
+    public OngoingHappening(int stateId, int duration)
     {
         StateId = stateId;
         DaysRemaining = duration;

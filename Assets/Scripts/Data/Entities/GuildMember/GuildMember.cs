@@ -9,6 +9,7 @@ public class GuildMember
     public int Id;
     public string Nickname;
     public int BehaviorType;
+    public Pet[] Pets = new Pet[3];
 
     // Social
     public float Age;
@@ -28,9 +29,9 @@ public class GuildMember
     public int GuildYears;
     public int GuildLoyalty;
 
-    // Ongoing
-    public List<OngoingState> OngoingStates = new List<OngoingState>();
-    public Pet[] Pets = new Pet[3];
+    // Ongoings
+    public List<int> OngoingTags = new List<int>();
+    public List<OngoingHappening> OngoingHappenings = new List<OngoingHappening>();
 
     // Performance
     public float Proficiency;
@@ -38,15 +39,9 @@ public class GuildMember
 
     public void UpdateDaily()
     {
-        IncreaseAge();
+        Age += 0.1f;
         UpdateReadiness();
         UpdateProficiency();
-        CheckEvents();
-    }
-
-    private void IncreaseAge()
-    {
-        Age += 0.1f;
     }
 
     private void UpdateReadiness()
@@ -59,19 +54,14 @@ public class GuildMember
         // 커리큘럼/스케줄에 따른 숙련도 성장
     }
 
-    private void CheckEvents()
+    public void ProgressOngoingHappenings()
     {
-        // 랜덤 이벤트 발생 로직
-    }
-
-    public void ProgressOngoingStates()
-    {
-        for (int i = OngoingStates.Count - 1; i >= 0; i--)
+        for (int i = OngoingHappenings.Count - 1; i >= 0; i--)
         {
-            OngoingStates[i].ProgressDay(this);
-            if (OngoingStates[i].IsExpired())
+            OngoingHappenings[i].ProgressDay(this);
+            if (OngoingHappenings[i].IsExpired())
             {
-                OngoingStates.RemoveAt(i);
+                OngoingHappenings.RemoveAt(i);
             }
         }
     }
