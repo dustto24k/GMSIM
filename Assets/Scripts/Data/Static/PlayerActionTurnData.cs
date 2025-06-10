@@ -10,7 +10,7 @@ public static class PlayerActionTurnData
             {
                 { TimeSlot.Morning, ActionType.CheckDailyReport },
                 { TimeSlot.Forenoon, ActionType.PlayerPetEarnPhase },
-                { TimeSlot.Noon, ActionType.CheckFaResult },
+                { TimeSlot.Noon, ActionType.CheckWithdrawalResult },
                 { TimeSlot.Afternoon, ActionType.PlayerPetSpendPhase }
             }
         },
@@ -64,16 +64,27 @@ public static class PlayerActionTurnData
         }
     };
 
-    public bool IsPlayerActionTurn(int day, int timeSlot)
+    public static bool IsPlayerActionTurn(DayOfWeek day, TimeSlot slot)
     {
-        if (actionTurns.TryGetValue(day, out var dayDict))
+        if (playerActionTurns.TryGetValue(day, out var dayDict))
         {
-            if (dayDict.TryGetValue(timeSlot, out var actionTurn))
+            if (dayDict.TryGetValue(slot, out var actionType))
             {
-                return actionTurn.actionType != ActionType.None;
+                return actionType != ActionType.None;
             }
         }
         return false;
     }
 
+    public static ActionType GetPlayerActionType(DayOfWeek day, TimeSlot slot)
+    {
+        if (playerActionTurns.TryGetValue(day, out var dayDict))
+        {
+            if (dayDict.TryGetValue(slot, out var actionType))
+            {
+                return actionType;
+            }
+        }
+        return ActionType.None;
+    }
 }

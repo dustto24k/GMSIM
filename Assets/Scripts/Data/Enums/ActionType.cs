@@ -3,7 +3,7 @@
     CheckDailyReport,
     CheckWeeklyReport,
     CheckRaidResult,
-    CheckFaResult,
+    CheckWithdrawalResult,
     PlayerPetEarnPhase,
     PlayerPetSpendPhase,
     TownExploration,
